@@ -5,10 +5,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-secondary">
-                <span className="font-['Bangers'] text-primary text-xl">SL</span>
-              </div>
-              <h3 className="text-2xl font-['Bangers']">Super Lista</h3>
+              <img 
+                src="/attached_assets/logo.png" 
+                alt="Super Lista Logo" 
+                className="h-12 object-contain"
+              />
             </div>
             <p className="font-['Comic_Neue'] opacity-80">
               O super-herói das compras para estabelecimentos de alimentos em todo o Brasil.

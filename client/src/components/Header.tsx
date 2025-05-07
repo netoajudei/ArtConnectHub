@@ -1,6 +1,6 @@
 import { useState } from "react";
 // Usando importação padrão para imagens
-const logoImage = "/attached_assets/logo-transparent.png";
+const logoImage = "/attached_assets/logo.png";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,9 +16,8 @@ export default function Header() {
           <img 
             src={logoImage} 
             alt="Super Lista Logo" 
-            className="h-12 md:h-14"
+            className="h-14 md:h-16 object-contain"
           />
-          <h1 className="text-3xl font-['Bangers'] text-white tracking-wider">Super Lista</h1>
         </div>
         
         <nav className={`${mobileMenuOpen ? 'flex flex-col absolute top-full right-0 bg-primary p-4 z-50 w-full md:w-auto' : 'hidden'} md:flex md:flex-row md:static md:bg-transparent md:p-0 space-y-4 md:space-y-0 md:space-x-6 text-white`}>
