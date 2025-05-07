@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "wouter";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
@@ -12,7 +13,15 @@ import Footer from "@/components/Footer";
 import { useAuth } from "@/hooks/use-auth-context";
 
 export default function Home() {
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading } = useAuth();
+  const [, navigate] = useLocation();
+  
+  // Redirecionar para o dashboard se o usuário estiver autenticado
+  useEffect(() => {
+    if (user && !isLoading) {
+      navigate("/dashboard");
+    }
+  }, [user, isLoading, navigate]);
   
   // Animation for flash-in elements when in viewport
   useEffect(() => {

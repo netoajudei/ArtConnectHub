@@ -1,6 +1,7 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import SponsorCarousel from "@/components/dashboard/SponsorCarousel";
 import PromotionGrid from "@/components/dashboard/PromotionGrid";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/hooks/use-auth-context";
 import { ShoppingBag, ListChecks, Users, Clock } from "lucide-react";
 
@@ -56,24 +57,26 @@ export default function Dashboard() {
   ];
 
   return (
-    <DashboardLayout>
-      <div className="mb-6">
-        <h1 className="text-2xl font-['Bangers'] text-gray-800">Bem-vindo, {user?.name || user?.nome || "Usuário"}!</h1>
-        <p className="text-gray-500 font-['Comic_Neue']">Confira as melhores ofertas para o seu estabelecimento</p>
-      </div>
+    <ProtectedRoute>
+      <DashboardLayout>
+        <div className="mb-6">
+          <h1 className="text-2xl font-['Bangers'] text-gray-800">Bem-vindo, {user?.name || user?.nome || "Usuário"}!</h1>
+          <p className="text-gray-500 font-['Comic_Neue']">Confira as melhores ofertas para o seu estabelecimento</p>
+        </div>
 
-      {/* Estatísticas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        {stats.map((stat, index) => (
-          <StatCard key={index} {...stat} />
-        ))}
-      </div>
+        {/* Estatísticas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {stats.map((stat, index) => (
+            <StatCard key={index} {...stat} />
+          ))}
+        </div>
 
-      {/* Carousel de patrocinadores */}
-      <SponsorCarousel />
+        {/* Carousel de patrocinadores */}
+        <SponsorCarousel />
 
-      {/* Grades de promoções por categoria */}
-      <PromotionGrid />
-    </DashboardLayout>
+        {/* Grades de promoções por categoria */}
+        <PromotionGrid />
+      </DashboardLayout>
+    </ProtectedRoute>
   );
 }
