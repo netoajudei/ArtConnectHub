@@ -1,5 +1,8 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
+// API URL constante
+export const EXTERNAL_API_URL = "https://x5ii-4wuf-1p2t.n7c.xano.io/api:mrnZhgCx";
+
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
     const text = (await res.text()) || res.statusText;
@@ -40,6 +43,30 @@ export const getQueryFn: <T>(options: {
     await throwIfResNotOk(res);
     return await res.json();
   };
+
+// Função específica para o backend externo
+export async function externalApiRequest(
+  method: string,
+  endpoint: string,
+  data?: unknown | undefined,
+): Promise<Response> {
+  const url = `${EXTERNAL_API_URL}${endpoint}`;
+  const res = await fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      // Se precisar de autenticação, adicione os headers necessários aqui
+    },
+    body: data ? JSON.stringify(data) : undefined,
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || res.statusText);
+  }
+  
+  return res;
+}
 
 export const queryClient = new QueryClient({
   defaultOptions: {

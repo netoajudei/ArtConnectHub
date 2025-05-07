@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocation } from "wouter";
 import {
   Form,
   FormControl,
@@ -14,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { externalApiRequest } from "@/lib/queryClient";
 
 // Esquemas de validação
 const loginSchema = z.object({
@@ -37,6 +40,55 @@ type CadastroFormValues = z.infer<typeof cadastroSchema>;
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState<string>("entrar");
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
+  const [conviteCode, setConviteCode] = useState<string>("");
+  
+  // Extrair o código de convite da URL, se houver
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const convite = urlParams.get('convite');
+    if (convite) {
+      setConviteCode(convite);
+      // Opcionalmente, pode mudar a aba para cadastro quando um convite é detectado
+      setActiveTab("cadastrar");
+    }
+  }, []);
+  
+  // Mutation para cadastro
+  const signupMutation = useMutation({
+    mutationFn: async (data: {
+      name: string;
+      email: string;
+      password: string;
+      convite: string;
+    }) => {
+      const response = await externalApiRequest(
+        "POST", 
+        "/auth/signup", 
+        data
+      );
+      return await response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Cadastro realizado",
+        description: "Sua conta foi criada com sucesso!",
+        variant: "default",
+      });
+      
+      // Opcionalmente, redirecionar o usuário para a página inicial ou dashboard
+      setTimeout(() => {
+        setLocation("/");
+      }, 2000);
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Erro no cadastro",
+        description: error.message || "Ocorreu um erro ao criar sua conta. Tente novamente.",
+        variant: "destructive",
+      });
+    }
+  });
   
   // Formulário de login
   const loginForm = useForm<LoginFormValues>({
@@ -58,23 +110,25 @@ export default function AuthPage() {
     },
   });
 
-  // Funções para submissão dos formulários
+  // Função para submissão do login
   const onLoginSubmit = (values: LoginFormValues) => {
     toast({
       title: "Login realizado",
       description: `Bem-vindo de volta!`,
     });
     console.log("Login:", values);
-    // Aqui você conectaria com seu backend
+    // Implementação do login será adicionada posteriormente
   };
 
+  // Função para submissão do cadastro
   const onCadastroSubmit = (values: CadastroFormValues) => {
-    toast({
-      title: "Cadastro realizado",
-      description: `Conta criada com sucesso para ${values.nome}!`,
+    // Mapear os campos do formulário para o formato esperado pela API
+    signupMutation.mutate({
+      name: values.nome,
+      email: values.email,
+      password: values.senha,
+      convite: conviteCode,
     });
-    console.log("Cadastro:", values);
-    // Aqui você conectaria com seu backend
   };
 
   return (
@@ -209,9 +263,21 @@ export default function AuthPage() {
                   <Button 
                     type="submit" 
                     className="w-full font-['Bangers'] text-xl py-6"
+                    disabled={signupMutation.isPending}
                   >
-                    CADASTRAR
+                    {signupMutation.isPending ? (
+                      <>
+                        <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+                        PROCESSANDO...
+                      </>
+                    ) : "CADASTRAR"}
                   </Button>
+                  
+                  {conviteCode && (
+                    <p className="text-center mt-2 text-sm font-['Comic_Neue'] text-primary">
+                      Cadastro com convite: <span className="font-bold">{conviteCode}</span>
+                    </p>
+                  )}
                 </form>
               </Form>
             </TabsContent>
