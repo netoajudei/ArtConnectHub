@@ -48,7 +48,7 @@ export default function AuthPage() {
   // Redirecionar se o usuário já estiver autenticado
   useEffect(() => {
     if (user && !isLoading) {
-      setLocation("/");
+      setLocation("/dashboard");
     }
   }, [user, isLoading, setLocation]);
   
@@ -92,7 +92,7 @@ export default function AuthPage() {
         
         // Redireciona o usuário para a página inicial após o login
         setTimeout(() => {
-          setLocation("/");
+          setLocation("/dashboard");
         }, 2000);
       } else {
         toast({
@@ -169,7 +169,7 @@ export default function AuthPage() {
         
         // Redireciona o usuário para a página inicial após o login
         setTimeout(() => {
-          setLocation("/");
+          setLocation("/dashboard");
         }, 2000);
       } else {
         console.error("Erro: Token não retornado na resposta", data);
