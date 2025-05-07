@@ -12,7 +12,7 @@ export default function RevenueModelSection() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            COMO É GRÁTIS?
+            VANTAGENS PARA OS FORNECEDORES
           </motion.h2>
         </div>
         
@@ -87,8 +87,8 @@ export default function RevenueModelSection() {
           <p className="font-['Comic_Neue'] text-lg">
             Queremos democratizar o acesso à tecnologia para todos os estabelecimentos 
             de alimentos, independente do seu tamanho. Acreditamos que um modelo gratuito 
-            para usuários finais é a melhor maneira de causar uma disrupção positiva em um 
-            mercado conservador e trazer benefícios reais para todos.
+            para usuários finais é a melhor maneira de causar uma disrupção positiva e 
+            trazer benefícios reais para todos.
           </p>
         </motion.div>
       </div>

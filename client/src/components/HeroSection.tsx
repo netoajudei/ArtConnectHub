@@ -35,8 +35,11 @@ export default function HeroSection() {
             </p>
           </motion.div>
           
-          <motion.button 
-            className="comic-border bg-primary hover:bg-red-600 text-white font-['Bangers'] text-2xl px-8 py-3 rounded-lg transform hover:scale-105 transition duration-300 shadow-[5px_5px_0px_rgba(0,0,0,0.5)]"
+          <motion.a 
+            href="http://superlista.flutterflow.app/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block comic-border bg-primary hover:bg-red-600 text-white font-['Bangers'] text-2xl px-8 py-3 rounded-lg transform hover:scale-105 transition duration-300 shadow-[5px_5px_0px_rgba(0,0,0,0.5)]"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
@@ -44,7 +47,7 @@ export default function HeroSection() {
             whileTap={{ scale: 0.95 }}
           >
             COMEÇAR AGORA <i className="fas fa-bolt ml-2"></i>
-          </motion.button>
+          </motion.a>
           
           <motion.p 
             className="mt-3 text-sm font-semibold"
