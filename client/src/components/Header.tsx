@@ -1,4 +1,6 @@
 import { useState } from "react";
+// Usando importação padrão para imagens
+const logoImage = "/attached_assets/logo.png";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -11,9 +13,11 @@ export default function Header() {
     <header className="bg-primary shadow-lg">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-4 border-secondary">
-            <span className="font-['Bangers'] text-primary text-xl">SL</span>
-          </div>
+          <img 
+            src={logoImage} 
+            alt="Super Lista Logo" 
+            className="h-12 md:h-14"
+          />
           <h1 className="text-3xl font-['Bangers'] text-white tracking-wider">Super Lista</h1>
         </div>
         
