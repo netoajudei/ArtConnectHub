@@ -43,7 +43,14 @@ export default function AuthPage() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [conviteCode, setConviteCode] = useState<string>("");
-  const { login } = useAuth();
+  const { login, user, isLoading } = useAuth();
+  
+  // Redirecionar se o usuário já estiver autenticado
+  useEffect(() => {
+    if (user && !isLoading) {
+      setLocation("/");
+    }
+  }, [user, isLoading, setLocation]);
   
   // Extrair o código de convite da URL, se houver
   useEffect(() => {
@@ -130,6 +137,7 @@ export default function AuthPage() {
       email: string;
       password: string;
     }) => {
+      // Usando o exemplo de curl fornecido
       const response = await fetch(`${EXTERNAL_API_URL}/auth/login`, {
         method: 'POST',
         headers: {
@@ -148,6 +156,8 @@ export default function AuthPage() {
     onSuccess: (data) => {
       // Verifica se o token JWT foi retornado
       if (data.authToken) {
+        console.log("Login bem-sucedido, token JWT recebido");
+        
         // Armazena o token e busca os dados do usuário
         login(data.authToken);
         
@@ -162,6 +172,7 @@ export default function AuthPage() {
           setLocation("/");
         }, 2000);
       } else {
+        console.error("Erro: Token não retornado na resposta", data);
         toast({
           title: "Erro no login",
           description: "Não foi possível obter o token de autenticação.",

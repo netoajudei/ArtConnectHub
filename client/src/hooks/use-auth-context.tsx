@@ -52,12 +52,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Função para obter dados do usuário
+  // Função para obter dados do usuário usando o endpoint /auth/me com o token JWT
   const fetchUserData = async (authToken: string) => {
     setIsLoading(true);
     setError(null);
     
     try {
+      console.log("Buscando dados do usuário com token JWT");
+      
+      // Faz a requisição para /auth/me enviando o token JWT no header
       const response = await fetch(`${EXTERNAL_API_URL}/auth/me`, {
         method: 'GET',
         headers: {
@@ -67,10 +70,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       
       if (!response.ok) {
-        throw new Error(`Erro ao obter dados do usuário: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error("Erro na resposta do servidor:", errorText);
+        throw new Error(`Erro ao obter dados do usuário: ${response.status} - ${response.statusText}`);
       }
       
+      // Obtém os dados do usuário a partir da resposta
       const userData = await response.json();
+      console.log("Dados do usuário recebidos:", userData);
+      
+      // Armazena os dados do usuário no estado
       setUser(userData);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Erro desconhecido'));

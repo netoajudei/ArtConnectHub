@@ -9,6 +9,7 @@ import AboutUsSection from "@/components/AboutUsSection";
 import PartnerCTASection from "@/components/PartnerCTASection";
 import FinalCTASection from "@/components/FinalCTASection";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/hooks/use-auth-context";
 
 export default function Home() {
   // Animation for flash-in elements when in viewport
