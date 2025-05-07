@@ -1,0 +1,256 @@
+import { useState } from "react";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
+
+// Esquemas de validação
+const loginSchema = z.object({
+  email: z.string().email("Email inválido").min(1, "Email é obrigatório"),
+  senha: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+});
+
+const cadastroSchema = z.object({
+  nome: z.string().min(1, "Nome é obrigatório"),
+  email: z.string().email("Email inválido").min(1, "Email é obrigatório"),
+  senha: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+  confirmarSenha: z.string().min(6, "A confirmação de senha é necessária"),
+}).refine((data) => data.senha === data.confirmarSenha, {
+  message: "As senhas não coincidem",
+  path: ["confirmarSenha"],
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+type CadastroFormValues = z.infer<typeof cadastroSchema>;
+
+export default function AuthPage() {
+  const [activeTab, setActiveTab] = useState<string>("entrar");
+  const { toast } = useToast();
+  
+  // Formulário de login
+  const loginForm = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      senha: "",
+    },
+  });
+
+  // Formulário de cadastro
+  const cadastroForm = useForm<CadastroFormValues>({
+    resolver: zodResolver(cadastroSchema),
+    defaultValues: {
+      nome: "",
+      email: "",
+      senha: "",
+      confirmarSenha: "",
+    },
+  });
+
+  // Funções para submissão dos formulários
+  const onLoginSubmit = (values: LoginFormValues) => {
+    toast({
+      title: "Login realizado",
+      description: `Bem-vindo de volta!`,
+    });
+    console.log("Login:", values);
+    // Aqui você conectaria com seu backend
+  };
+
+  const onCadastroSubmit = (values: CadastroFormValues) => {
+    toast({
+      title: "Cadastro realizado",
+      description: `Conta criada com sucesso para ${values.nome}!`,
+    });
+    console.log("Cadastro:", values);
+    // Aqui você conectaria com seu backend
+  };
+
+  return (
+    <div className="min-h-screen bg-background flex">
+      {/* Formulário */}
+      <div className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-10">
+        <div className="max-w-md w-full space-y-8">
+          <div className="text-center">
+            <img 
+              src="/attached_assets/logo_with_name.png" 
+              alt="Super Lista Logo" 
+              className="h-24 mx-auto mb-6"
+            />
+            <h2 className="font-['Bangers'] text-4xl text-primary mb-2">
+              {activeTab === "entrar" ? "Entrar" : "Cadastrar"}
+            </h2>
+            <p className="font-['Comic_Neue'] text-lg">
+              {activeTab === "entrar" 
+                ? "Bem-vindo de volta, super herói!" 
+                : "Junte-se aos super heróis de compras!"}
+            </p>
+          </div>
+
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid grid-cols-2 w-full">
+              <TabsTrigger value="entrar" className="font-['Comic_Neue'] font-bold">Entrar</TabsTrigger>
+              <TabsTrigger value="cadastrar" className="font-['Comic_Neue'] font-bold">Cadastrar</TabsTrigger>
+            </TabsList>
+            
+            {/* Conteúdo da aba de login */}
+            <TabsContent value="entrar">
+              <Form {...loginForm}>
+                <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-6">
+                  <FormField
+                    control={loginForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-['Comic_Neue'] font-bold">Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="seu@email.com" {...field} />
+                        </FormControl>
+                        <FormMessage className="font-['Comic_Neue']" />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={loginForm.control}
+                    name="senha"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-['Comic_Neue'] font-bold">Senha</FormLabel>
+                        <FormControl>
+                          <Input type="password" placeholder="********" {...field} />
+                        </FormControl>
+                        <FormMessage className="font-['Comic_Neue']" />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full font-['Bangers'] text-xl py-6"
+                  >
+                    ENTRAR
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+            
+            {/* Conteúdo da aba de cadastro */}
+            <TabsContent value="cadastrar">
+              <Form {...cadastroForm}>
+                <form onSubmit={cadastroForm.handleSubmit(onCadastroSubmit)} className="space-y-6">
+                  <FormField
+                    control={cadastroForm.control}
+                    name="nome"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-['Comic_Neue'] font-bold">Nome Completo</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Seu nome completo" {...field} />
+                        </FormControl>
+                        <FormMessage className="font-['Comic_Neue']" />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={cadastroForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-['Comic_Neue'] font-bold">Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="seu@email.com" {...field} />
+                        </FormControl>
+                        <FormMessage className="font-['Comic_Neue']" />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={cadastroForm.control}
+                    name="senha"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-['Comic_Neue'] font-bold">Senha</FormLabel>
+                        <FormControl>
+                          <Input type="password" placeholder="********" {...field} />
+                        </FormControl>
+                        <FormMessage className="font-['Comic_Neue']" />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={cadastroForm.control}
+                    name="confirmarSenha"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-['Comic_Neue'] font-bold">Confirmar Senha</FormLabel>
+                        <FormControl>
+                          <Input type="password" placeholder="********" {...field} />
+                        </FormControl>
+                        <FormMessage className="font-['Comic_Neue']" />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full font-['Bangers'] text-xl py-6"
+                  >
+                    CADASTRAR
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </div>
+      
+      {/* Hero section / Imagem lateral */}
+      <div className="hidden md:block w-1/2 bg-primary">
+        <div className="h-full flex flex-col items-center justify-center text-white p-10">
+          <h1 className="font-['Bangers'] text-6xl text-center mb-6">
+            Super Poderes para suas Compras!
+          </h1>
+          <div className="font-['Comic_Neue'] text-xl text-center max-w-lg space-y-6">
+            <p>
+              O Super Lista é o aplicativo que está transformando a forma como estabelecimentos 
+              de alimentos fazem suas compras no Brasil.
+            </p>
+            <p>
+              Registre-se hoje e junte-se aos super-heróis que economizam tempo e dinheiro,
+              com orçamentos simplificados e as melhores ofertas de fornecedores.
+            </p>
+            <div className="flex flex-col items-center pt-6">
+              <div className="flex space-x-2 items-center mb-2">
+                <span className="bg-secondary rounded-full w-4 h-4 flex items-center justify-center text-black">✓</span>
+                <p className="font-bold">Orçamentos com um clique</p>
+              </div>
+              <div className="flex space-x-2 items-center mb-2">
+                <span className="bg-secondary rounded-full w-4 h-4 flex items-center justify-center text-black">✓</span>
+                <p className="font-bold">Compare preços facilmente</p>
+              </div>
+              <div className="flex space-x-2 items-center mb-2">
+                <span className="bg-secondary rounded-full w-4 h-4 flex items-center justify-center text-black">✓</span>
+                <p className="font-bold">Economize tempo nas compras</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

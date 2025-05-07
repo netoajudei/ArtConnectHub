@@ -29,9 +29,7 @@ export default function FinalCTASection() {
           </motion.div>
           
           <motion.a 
-            href="http://superlista.flutterflow.app/login"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/auth"
             className="inline-block comic-border bg-primary hover:bg-red-600 text-white font-['Bangers'] text-3xl px-10 py-4 rounded-lg transform hover:scale-105 transition duration-300 shadow-[5px_5px_0px_rgba(0,0,0,0.5)] mb-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
