@@ -27,25 +27,11 @@ export default function AboutUsSection() {
             <div className="flex flex-col md:flex-row">
               <div className="md:w-1/3 mb-8 md:mb-0">
                 <div className="relative w-48 h-48 mx-auto">
-                  <svg className="w-full h-full rounded-full comic-border" viewBox="0 0 200 200">
-                    <circle cx="100" cy="100" r="98" fill="#f8f9fa" />
-                    
-                    {/* Business Person */}
-                    <circle cx="100" cy="70" r="35" fill="#FFD7B5" stroke="#000" strokeWidth="2" />
-                    <path d="M70,140 L130,140 L130,100 Q115,90 100,95 Q85,90 70,100 Z" fill="#333" stroke="#000" strokeWidth="2" />
-                    <rect x="70" y="140" width="60" height="20" fill="#333" stroke="#000" strokeWidth="2" />
-                    
-                    <path d="M85,65 Q100,50 115,65" stroke="#000" strokeWidth="2" fill="none" />
-                    <path d="M85,70 L95,65 L85,60" stroke="#000" strokeWidth="2" fill="none" />
-                    <path d="M115,70 L105,65 L115,60" stroke="#000" strokeWidth="2" fill="none" />
-                    
-                    <path d="M90,85 Q100,95 110,85" stroke="#000" strokeWidth="2" fill="none" />
-                    
-                    <rect x="75" y="120" width="50" height="10" rx="5" fill="#fff" stroke="#000" strokeWidth="1" />
-                    
-                    <rect x="60" y="40" width="80" height="10" rx="5" fill="#fff" stroke="#000" strokeWidth="1" />
-                    <path d="M60,40 Q100,20 140,40" fill="#fff" stroke="#000" strokeWidth="1" />
-                  </svg>
+                  <img 
+                    src="/attached_assets/logo_square.png" 
+                    alt="Super Lista Founder" 
+                    className="w-full h-full rounded-full comic-border object-cover object-center"
+                  />
                   <div className="absolute -bottom-4 -right-4 w-14 h-14 bg-secondary rounded-full comic-border flex items-center justify-center">
                     <i className="fas fa-utensils text-primary text-xl"></i>
                   </div>
