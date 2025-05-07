@@ -1,0 +1,66 @@
+You are a landing page designer for a startup called "Super Lista", a Brazilian online quotation app for food establishments. The landing page must be written in Brazilian Portuguese and follow these instructions:
+
+VISUAL STYLE:
+
+Use a vibrant 1980s/1990s comic book/superhero style, inspired by comics of that era.
+The theme should remind of the superhero Flash, evoking speed, efficiency, and energy.
+The main color is #EC0E33 (a vivid red), and the secondary color is #FAB515 (yellow/golden), with possible comic-style highlights and dynamic effects.
+The mascot/logo is a shopping list dressed as the superhero Flash.
+Integrate comic book speech bubbles, dynamic lines, bold comic fonts, and playful illustration-style headers and section backgrounds.
+PAGE STRUCTURE:
+1. Hero Section:
+
+Impactful headline with a superhero/comic-style slogan (in Portuguese) about saving time and money.
+Short text with the value proposition.
+Eye-catching CTA button (start using for free).
+Visual/illustration of the "Super Lista" mascot in action.
+2. Problem Section ("O Problema"):
+
+Quickly illustrate the pain points of food service businesses: wasted time, forgotten items, overpaying, and inefficient processes.
+Use expressive comic illustrations (mention in prompt, so agent can suggest images).
+3. Solution Section ("Como a Super Lista ajuda?"):
+
+Explain main benefits: smart collaborative shopping lists, easy sharing, minimum stock settings, forget-proof, price comparison, time-saving, open to more suppliers.
+Use bullet points with icons/comic badges for each benefit.
+Highlight the story: founder is a restaurant owner who faced these very problems.
+4. How It Works ("Como Funciona?"):
+
+Step-by-step comic-style illustration:
+Montagem da lista colaborativa
+Compartilhamento e checagem pelos funcionários
+Recebimento das cotações de fornecedores
+Escolha do melhor preço/fornecedor e envio do pedido
+Each step should come with a comic scene or bubble.
+5. For Whom / Market Size:
+
+Brief section showing the gigantic size of the market: 2 milhões de estabelecimentos, R$217,6 bilhões/ano.
+6. Revenue Model ("Como é grátis?"):
+
+Explain in simple Portuguese: a) Ads inside the app (product-based and video banners during order processing). b) Paid plans for suppliers with extra features (client management, public quotes, performance reports).
+Transparência e segurança para os fornecedores.
+7. Why Free / Market Disruption:
+
+Emphasize why Super Lista is free for users and suppliers.
+Positioning against competitors and highlight benefit for a conservative market.
+8. Testimonials / About Us:
+
+Story of the founder: a restaurant owner for 15+ years, chemical engineer, passionate about technology, created Super Lista from his own frustration.
+Section inviting testimonials from early users.
+9. Partner Call-to-Action:
+
+Invite strategic partners and suppliers to reach out.
+10. Final CTA:
+
+Strong, comic-style call to action to start using Super Lista for free.
+SLOGANS (in Portuguese, comic-style):
+Ask for several slogan suggestions around heroism, savings, speed, and efficiency, such as:
+
+"Super Lista: O herói do seu bolso e do seu tempo!"
+"Velocidade nas suas compras, economia no seu caixa!"
+"Economize como um super-herói: rápido, fácil, sem erro!"
+ADDITIONAL:
+
+All texts must be in Portuguese.
+Use engaging headlines, comic tone, and invite the user to action.
+Ensure each section is approachable for a broad audience, especially non-technical business owners in the food sector.
+Suggest relevant comic-style illustrations or icons for each section.
