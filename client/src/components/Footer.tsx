@@ -6,9 +6,9 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <img 
-                src="/attached_assets/logo_transparent.png" 
+                src="/attached_assets/logo_with_name.png" 
                 alt="Super Lista Logo" 
-                className="h-12 object-contain"
+                className="h-14 object-contain"
               />
             </div>
             <p className="font-['Comic_Neue'] opacity-80">

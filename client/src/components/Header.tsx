@@ -1,6 +1,6 @@
 import { useState } from "react";
 // Usando importação padrão para imagens
-const logoImage = "/attached_assets/logo_transparent.png";
+const logoImage = "/attached_assets/logo_with_name.png";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,7 +16,7 @@ export default function Header() {
           <img 
             src={logoImage} 
             alt="Super Lista Logo" 
-            className="h-14 md:h-16 object-contain"
+            className="h-16 md:h-[4.6rem] object-contain"
           />
         </div>
         
