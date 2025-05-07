@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { useLocation } from "wouter";
+import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   const { user, logout } = useAuth();
@@ -35,12 +36,17 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 py-2 px-6">
       <div className="flex justify-between items-center">
+        {/* Menu móvel */}
+        <div className="md:hidden">
+          <MobileMenu />
+        </div>
+        
         {/* Barra de pesquisa */}
-        <div className="flex-1 max-w-xl">
+        <div className="flex-1 max-w-xl mx-2 md:mx-0">
           <div className="relative">
             <Input 
               type="text" 
-              placeholder="Pesquisar produtos, fornecedores..." 
+              placeholder="Pesquisar..." 
               className="pl-10 py-2 rounded-full bg-gray-100 border-gray-200 focus-visible:ring-primary w-full"
             />
             <Search className="absolute left-3 top-2.5 text-gray-500 h-5 w-5" />
@@ -48,9 +54,9 @@ export default function Header() {
         </div>
 
         {/* Ícones e conta do usuário */}
-        <div className="flex items-center space-x-6">
-          {/* Notificações */}
-          <button className="relative p-2 rounded-full hover:bg-gray-100 transition-colors">
+        <div className="flex items-center space-x-2 sm:space-x-6">
+          {/* Notificações - esconder em telas muito pequenas */}
+          <button className="hidden xs:block relative p-2 rounded-full hover:bg-gray-100 transition-colors">
             <Bell className="h-5 w-5 text-gray-700" />
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
