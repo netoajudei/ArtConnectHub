@@ -12,7 +12,8 @@ import {
   Building2, 
   User, 
   LogOut,
-  Home
+  Home,
+  Video
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth-context";
 
@@ -45,6 +46,12 @@ export default function MobileMenu() {
       icon: Heart, 
       href: "/dashboard/coracoes", 
       active: location.includes("/coracoes") 
+    },
+    { 
+      label: "Vídeos", 
+      icon: Video, 
+      href: "/dashboard/videos", 
+      active: location.includes("/videos") 
     },
     { 
       label: "Pedidos", 
