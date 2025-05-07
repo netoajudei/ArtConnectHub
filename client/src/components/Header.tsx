@@ -1,6 +1,6 @@
 import { useState } from "react";
 // Usando importação padrão para imagens
-const logoImage = "/attached_assets/logo.png";
+const logoImage = "/attached_assets/logo_transparent.png";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

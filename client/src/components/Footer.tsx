@@ -6,7 +6,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <img 
-                src="/attached_assets/logo.png" 
+                src="/attached_assets/logo_transparent.png" 
                 alt="Super Lista Logo" 
                 className="h-12 object-contain"
               />
