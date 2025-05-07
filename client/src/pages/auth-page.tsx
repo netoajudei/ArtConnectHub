@@ -16,7 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
-import { externalApiRequest } from "@/lib/queryClient";
+import { externalApiRequest, EXTERNAL_API_URL } from "@/lib/queryClient";
+import { useAuth } from "@/hooks/use-auth-context";
 
 // Esquemas de validação
 const loginSchema = z.object({
@@ -42,6 +43,7 @@ export default function AuthPage() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [conviteCode, setConviteCode] = useState<string>("");
+  const { login } = useAuth();
   
   // Extrair o código de convite da URL, se houver
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function AuthPage() {
     const convite = urlParams.get('convite');
     if (convite) {
       setConviteCode(convite);
-      // Opcionalmente, pode mudar a aba para cadastro quando um convite é detectado
+      // Muda a aba para cadastro quando um convite é detectado
       setActiveTab("cadastrar");
     }
   }, []);
@@ -70,16 +72,28 @@ export default function AuthPage() {
       return await response.json();
     },
     onSuccess: (data) => {
-      toast({
-        title: "Cadastro realizado",
-        description: "Sua conta foi criada com sucesso!",
-        variant: "default",
-      });
-      
-      // Opcionalmente, redirecionar o usuário para a página inicial ou dashboard
-      setTimeout(() => {
-        setLocation("/");
-      }, 2000);
+      // Verifica se o token JWT foi retornado
+      if (data.authToken) {
+        // Armazena o token e busca os dados do usuário
+        login(data.authToken);
+        
+        toast({
+          title: "Cadastro realizado",
+          description: "Sua conta foi criada com sucesso!",
+          variant: "default",
+        });
+        
+        // Redireciona o usuário para a página inicial após o login
+        setTimeout(() => {
+          setLocation("/");
+        }, 2000);
+      } else {
+        toast({
+          title: "Erro no cadastro",
+          description: "Não foi possível obter o token de autenticação.",
+          variant: "destructive",
+        });
+      }
     },
     onError: (error: Error) => {
       toast({
@@ -110,14 +124,66 @@ export default function AuthPage() {
     },
   });
 
+  // Mutation para login
+  const loginMutation = useMutation({
+    mutationFn: async (data: {
+      email: string;
+      password: string;
+    }) => {
+      const response = await fetch(`${EXTERNAL_API_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(errorData || 'Falha ao fazer login');
+      }
+      
+      return await response.json();
+    },
+    onSuccess: (data) => {
+      // Verifica se o token JWT foi retornado
+      if (data.authToken) {
+        // Armazena o token e busca os dados do usuário
+        login(data.authToken);
+        
+        toast({
+          title: "Login realizado",
+          description: "Bem-vindo de volta!",
+          variant: "default",
+        });
+        
+        // Redireciona o usuário para a página inicial após o login
+        setTimeout(() => {
+          setLocation("/");
+        }, 2000);
+      } else {
+        toast({
+          title: "Erro no login",
+          description: "Não foi possível obter o token de autenticação.",
+          variant: "destructive",
+        });
+      }
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Erro no login",
+        description: error.message || "Verifique suas credenciais e tente novamente.",
+        variant: "destructive",
+      });
+    }
+  });
+
   // Função para submissão do login
   const onLoginSubmit = (values: LoginFormValues) => {
-    toast({
-      title: "Login realizado",
-      description: `Bem-vindo de volta!`,
+    loginMutation.mutate({
+      email: values.email,
+      password: values.senha
     });
-    console.log("Login:", values);
-    // Implementação do login será adicionada posteriormente
   };
 
   // Função para submissão do cadastro
@@ -193,8 +259,14 @@ export default function AuthPage() {
                   <Button 
                     type="submit" 
                     className="w-full font-['Bangers'] text-xl py-6"
+                    disabled={loginMutation.isPending}
                   >
-                    ENTRAR
+                    {loginMutation.isPending ? (
+                      <>
+                        <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+                        PROCESSANDO...
+                      </>
+                    ) : "ENTRAR"}
                   </Button>
                 </form>
               </Form>
