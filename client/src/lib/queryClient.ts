@@ -49,15 +49,31 @@ export async function externalApiRequest(
   method: string,
   endpoint: string,
   data?: unknown | undefined,
+  isFormData: boolean = false,
 ): Promise<Response> {
   const url = `${EXTERNAL_API_URL}${endpoint}`;
+  const token = localStorage.getItem("token");
+  
+  // Headers básicos
+  const headers: HeadersInit = {};
+
+  // Adicionar token se existir
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  
+  // Adicionar Content-Type apenas para JSON, não para FormData
+  if (!isFormData) {
+    headers["Content-Type"] = "application/json";
+  }
+  
   const res = await fetch(url, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-      // Se precisar de autenticação, adicione os headers necessários aqui
-    },
-    body: data ? JSON.stringify(data) : undefined,
+    headers,
+    // Se for FormData, envie diretamente, senão converta para JSON
+    body: data 
+      ? (isFormData ? data as FormData : JSON.stringify(data)) 
+      : undefined,
   });
 
   if (!res.ok) {

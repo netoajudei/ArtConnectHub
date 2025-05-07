@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { useLocation } from "wouter";
 import { 
   ListChecks, Heart, Users, ShoppingBag, Building,
-  User, LogOut, Menu, Home, ChevronRight
+  User, LogOut, Menu, Home, ChevronRight, Video
 } from "lucide-react";
 
 interface SidebarProps {
@@ -40,6 +40,11 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
       label: "Corações",
       icon: Heart,
       href: "/dashboard/favoritos",
+    },
+    {
+      label: "Vídeos",
+      icon: Video,
+      href: "/dashboard/videos",
     },
     {
       label: "Pedidos",
