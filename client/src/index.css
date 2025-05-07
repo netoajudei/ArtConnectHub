@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --primary: 354 87% 49%; /* #EC0E33 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 43 95% 53%; /* #FAB515 */
+    --secondary-foreground: 24 9.8% 10%;
+    --accent: 240 5.9% 10%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --ring: 20 14.3% 4.1%;
+    --radius: 0.5rem;
+    --comic-blue: 227 85% 59%;
+    --comic-green: 150 56% 60%;
+    --dark: 240 19% 14%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-body antialiased bg-background text-foreground overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .comic-border {
+    @apply border-4 border-black shadow-[5px_5px_0px_rgba(0,0,0,0.5)];
+  }
+
+  .speech-bubble {
+    @apply relative bg-white rounded-2xl border-4 border-black;
+  }
+
+  .speech-bubble:after {
+    content: '';
+    @apply absolute bottom-0 left-[15%] border-[20px] border-transparent border-t-white border-b-0 -mb-5 -ml-5;
+  }
+
+  .speech-bubble:before {
+    content: '';
+    @apply absolute -bottom-[3px] left-[15%] border-[23px] border-transparent border-t-black border-b-0 -mb-5 -ml-6;
+  }
+
+  .diagonal-divider {
+    @apply relative h-12 overflow-hidden;
+  }
+
+  .diagonal-divider::before {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-full bg-inherit;
+    clip-path: polygon(0 0, 100% 100%, 100% 0);
+  }
+
+  .comic-dots {
+    background-size: 20px 20px;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+  }
+
+  .pow-bubble {
+    @apply relative p-4 bg-secondary transform -rotate-2;
+    clip-path: polygon(0% 0%, 100% 0%, 95% 50%, 100% 100%, 0% 100%, 5% 50%);
+  }
+
+  .speed-lines {
+    background-image: repeating-linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 1px, transparent 1px, transparent 10px);
+  }
+
+  .hover-pop:hover {
+    @apply transform scale-105 transition duration-300;
+  }
+
+  .flash-in {
+    animation: flashIn 0.5s forwards;
+  }
+
+  @keyframes flashIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translateX(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+@font-face {
+  font-family: 'Bangers';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/bangers/v20/FeVQS0BTqb0h60ACH5FQ.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Comic Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/comicneue/v8/4UaHrEJDsxBrF37olUeD96rp.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Comic Neue';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/comicneue/v8/4UaErEJDsxBrF37olUeD_xHM8pxU.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aXo.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v26/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM73w5aXo.woff2) format('woff2');
+}
