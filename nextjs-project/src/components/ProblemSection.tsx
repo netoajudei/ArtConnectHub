@@ -10,7 +10,7 @@ export default function ProblemSection() {
             <div className="w-full aspect-video bg-black">
               <video
                 className="w-full h-full"
-                src="/tutorial.mp4"
+                src="https://tcwsrmqppljuhzuxwkyw.supabase.co/storage/v1/object/public/assets/WhatsApp%20Video%202025-10-02%20at%2011.40.45.mp4"
                 controls
                 preload="none"
                 playsInline
