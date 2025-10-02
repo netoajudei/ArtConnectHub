@@ -28,8 +28,8 @@ export default function AboutUsSection() {
               <div className="md:w-1/3 mb-8 md:mb-0">
                 <div className="relative w-48 h-48 mx-auto">
                   <img 
-                    src="/attached_assets/logo_square.png" 
-                    alt="Super Lista Founder" 
+                    src="/attached_assets/founderHq.png" 
+                    alt="Fundador da Super Lista" 
                     className="w-full h-full rounded-full comic-border object-cover object-center"
                   />
                   <div className="absolute -bottom-4 -right-4 w-14 h-14 bg-secondary rounded-full comic-border flex items-center justify-center">
