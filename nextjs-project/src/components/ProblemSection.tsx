@@ -1,22 +1,72 @@
+"use client";
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function ProblemSection() {
+  const VIDEO_SRC =
+    process.env.NEXT_PUBLIC_PROBLEM_VIDEO_URL ??
+    "https://tcwsrmqppljuhzuxwkyw.supabase.co/storage/v1/object/public/assets/WhatsApp%20Video%202025-10-02%20at%2011.40.45.mp4";
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            io.disconnect();
+          }
+        });
+      },
+      { rootMargin: "100px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section id="problema" className="bg-primary pt-16 pb-24">
       <div className="container mx-auto px-4">
         {/* Tutorial Video - acima do título O PROBLEMA */}
-        <div className="mb-10">
+        <div className="mb-10" ref={containerRef}>
           <div className="comic-border bg-white overflow-hidden rounded">
             <div className="w-full aspect-video bg-black">
-              <video
-                className="w-full h-full"
-                src="https://tcwsrmqppljuhzuxwkyw.supabase.co/storage/v1/object/public/assets/WhatsApp%20Video%202025-10-02%20at%2011.40.45.mp4"
-                controls
-                preload="none"
-                playsInline
-              />
+              {isVisible ? (
+                <video
+                  className="w-full h-full"
+                  src={VIDEO_SRC}
+                  controls
+                  preload="metadata"
+                  playsInline
+                  poster="/attached_assets/logo_with_name.png"
+                  onError={() => setVideoError(true)}
+                />
+              ) : (
+                <img
+                  src="/attached_assets/logo_with_name.png"
+                  alt="Prévia do vídeo"
+                  className="w-full h-full object-contain"
+                />
+              )}
             </div>
           </div>
+          {videoError && (
+            <div className="comic-border bg-white mt-2 p-3 text-sm text-red-700">
+              Não foi possível carregar o vídeo. "
+              <a
+                className="underline"
+                href={VIDEO_SRC}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Abrir em nova aba
+              </a>
+            </div>
+          )}
         </div>
         <div className="text-center mb-16">
           <motion.h2 
