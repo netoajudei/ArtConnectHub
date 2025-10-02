@@ -75,7 +75,7 @@ export default function VideoPlayer({
   return (
     <div ref={containerRef} className="w-full">
       <div className="w-full aspect-video bg-black">
-        {isVisible ? (
+        {isVisible && !videoError ? (
           <video
             ref={videoRef}
             className="w-full h-full"
@@ -97,7 +97,7 @@ export default function VideoPlayer({
               <track
                 kind="subtitles"
                 src={captionsSrc}
-                srclang="pt"
+                srcLang="pt"
                 label="Português"
                 default
               />
