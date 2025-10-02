@@ -4,8 +4,7 @@ import VideoPlayer from "./VideoPlayer";
 
 export default function ProblemSection() {
   const VIDEO_SRC =
-    process.env.NEXT_PUBLIC_PROBLEM_VIDEO_URL ??
-    "https://tcwsrmqppljuhzuxwkyw.supabase.co/storage/v1/object/public/assets/WhatsApp%20Video%202025-10-02%20at%2011.40.45.mp4";
+    "https://tcwsrmqppljuhzuxwkyw.supabase.co/storage/v1/object/public/assets/WhatsApp%20Video%202025-10-02%20at%2014.44.03.mp4";
   const POSTER_SRC =
     process.env.NEXT_PUBLIC_PROBLEM_VIDEO_POSTER ??
     "/attached_assets/como-funciona-capa.png";
