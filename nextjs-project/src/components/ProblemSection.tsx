@@ -4,6 +4,20 @@ export default function ProblemSection() {
   return (
     <section id="problema" className="bg-primary pt-16 pb-24">
       <div className="container mx-auto px-4">
+        {/* Tutorial Video - acima do título O PROBLEMA */}
+        <div className="mb-10">
+          <div className="comic-border bg-white overflow-hidden rounded">
+            <div className="w-full aspect-video bg-black">
+              <video
+                className="w-full h-full"
+                src="/tutorial.mp4"
+                controls
+                preload="none"
+                playsInline
+              />
+            </div>
+          </div>
+        </div>
         <div className="text-center mb-16">
           <motion.h2 
             className="inline-block comic-border bg-white font-['Bangers'] text-4xl text-primary px-8 py-3 transform -rotate-2"
