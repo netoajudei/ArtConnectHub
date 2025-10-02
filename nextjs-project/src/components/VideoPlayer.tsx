@@ -105,7 +105,7 @@ export default function VideoPlayer({
           </video>
         ) : (
           <img
-            src={poster || "/attached_assets/logo_with_name.png"}
+            src={poster || "/attached_assets/como-funciona-capa.png"}
             alt="Prévia do vídeo"
             className="w-full h-full object-contain"
           />

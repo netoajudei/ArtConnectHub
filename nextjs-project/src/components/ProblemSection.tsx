@@ -8,7 +8,7 @@ export default function ProblemSection() {
     "https://tcwsrmqppljuhzuxwkyw.supabase.co/storage/v1/object/public/assets/WhatsApp%20Video%202025-10-02%20at%2011.40.45.mp4";
   const POSTER_SRC =
     process.env.NEXT_PUBLIC_PROBLEM_VIDEO_POSTER ??
-    "/attached_assets/logo_with_name.png";
+    "/attached_assets/como-funciona-capa.png";
 
   return (
     <section id="problema" className="bg-primary pt-16 pb-24">
